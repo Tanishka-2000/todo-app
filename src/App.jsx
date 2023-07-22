@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Typography, CssBaseline, Collapse, Snackbar } from '@mui/material';
+import { Box, Typography, CssBaseline, Collapse, Snackbar, Toolbar } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -74,7 +74,11 @@ function App() {
           }}
           m={5}
         >
-          <Typography variant='h6' sx={{ borderBottom: '1px solid #ccc', mx: 2}} >{filter.name}</Typography>
+          <Toolbar  sx={{  mx: 2, justifyContent: 'space-between'}}>
+            <Typography variant='h6' >{filter.name}</Typography>
+            <Typography variant='body2'> {new Date().toString().slice(0, 15)}</Typography>
+          </Toolbar>
+          <hr />
           <TodoList filter={filter}/>
           {openTodoForm ? <TodoItemForm openForm={openTodoForm} setOpenForm={setOpenTodoForm}/> : ""}
 

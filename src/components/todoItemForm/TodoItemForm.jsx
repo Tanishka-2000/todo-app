@@ -6,7 +6,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo, updateTodo } from "../../features/todo/todoSlice";
-import { useTheme } from '@emotion/react';
+// import { useTheme } from '@emotion/react';
 
 export default function TodoItemForm({ openForm, setOpenForm, todo}) {
   const [task, setTask] = useState(() => todo ? todo.task : "");
@@ -15,7 +15,8 @@ export default function TodoItemForm({ openForm, setOpenForm, todo}) {
   const [priority, setPriority] = useState(() => todo ? todo.priority : "");
   const [dueDate, setDueDate] = useState(() => todo ? todo.dueDate : Date.now());
   const dispatch = useDispatch();
-  const theme = useTheme();
+  // const theme = useTheme();
+ 
   const projects = useSelector(state => state.todo.projects);
 
   const handleSubmit = () => {
@@ -39,7 +40,7 @@ export default function TodoItemForm({ openForm, setOpenForm, todo}) {
     }));
     setTask('');
     setDescription('')
-    setProject('')
+    setProject('Inbox')
     setPriority('')
     setDueDate(Date.now())
     setOpenForm(false)
@@ -77,7 +78,7 @@ export default function TodoItemForm({ openForm, setOpenForm, todo}) {
             />
             <Toolbar disableGutters sx={{gap: '8px'}}>
                 <FormControl fullWidth>
-                  <DatePicker fullWidth label='Due Date' value={dueDate} onChange={newValue => setDueDate(newValue)}/>
+                  <DatePicker fullWidth label='Due Date' value={dueDate} onChange={newValue => setDueDate(newValue)} disablePast/>
                 </FormControl>
 
               <FormControl fullWidth margin='dense'>

@@ -38,11 +38,7 @@ export default function Sidebar({ DrawerOpen, setDrawerOpen, setFilter, openAler
 
     const handleProjectDelete = (e, id, total) => {
         e.stopPropagation();
-
-        total > 0
-        ? openAlert(true)
-        : dispatch(deleteproject(id));
-
+        total > 0 ? openAlert(true) : dispatch(deleteproject(id));
         setDrawerOpen(false);
     }
 

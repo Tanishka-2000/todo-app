@@ -7,6 +7,9 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import isToday from 'date-fns/isToday'
+import isTomorrow from 'date-fns/isTomorrow'
+import isPast from 'date-fns/isPast'
 
 import { toggleTodo, deleteTodo } from '../../features/todo/todoSlice';
 import TodoItemForm from '../todoItemForm/TodoItemForm'
@@ -15,10 +18,18 @@ export default function TodoItem({ todo }) {
     const [checked, setChecked] = useState(todo.completed);
     const [editForm, setEditForm] = useState(false);
     const dispatch = useDispatch();
+    let date;
 
     const handleChange = () => {
         dispatch(toggleTodo(todo.id))
         setChecked(prev => !prev);
+    }
+
+    if( todo.dueDate){
+        if (isToday(todo.dueDate)) date = 'Today';
+        else if (isTomorrow(todo.dueDate)) date = 'Tomorrow';
+        else if (isPast(todo.dueDate)) date = 'Overdue';
+        else date = new Date(todo.dueDate).toDateString().slice(4, 10)
     }
 
     return(
@@ -34,7 +45,7 @@ export default function TodoItem({ todo }) {
                 <Box py={.8} sx={{flex: 1}}>
                     <Typography variant='body1' sx={{textDecoration: checked && 'line-through'}} >{todo.task}</Typography>
                     <Typography variant='body2'color='gray.main' sx={{textDecoration: checked && 'line-through'}} >{todo.description}</Typography>
-                    { todo.dueDate && <Typography variant='caption' color='gray.main'><EventOutlinedIcon fontSize='small' /> {new Date(todo.dueDate).toDateString().slice(4, 10)}</Typography>}
+                    { todo.dueDate && <Typography variant='caption' color='gray.main'><EventOutlinedIcon fontSize='small' /> {date}</Typography>}
                 </Box>  
                 <Box sx={{ textAlign: 'end' }}>
                     <ButtonGroup sx={{opacity: 0}}>

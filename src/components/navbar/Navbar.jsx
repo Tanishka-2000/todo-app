@@ -27,7 +27,7 @@ export default function Navbar({ setOpenSidebar, setOpenForm, isDarkTheme, setIs
                     <MenuIcon  color='secondary'/>
                 </IconButton>
                 
-                <IconButton onClick={() => setFilter("Todos")}>
+                <IconButton onClick={() => setFilter({name: "Todos"})}>
                     <HomeIcon color='secondary'/>
                 </IconButton>
                 
